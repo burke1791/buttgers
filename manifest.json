@@ -1,0 +1,14 @@
+{
+  "name": "Butgers",
+  "version": "0.1",
+  "description": "Replaces Rutgers with Butgers",
+  "manifest_version": 2,
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "run_at": "document_idle",
+      "js": ["butgers.js"]
+    }
+  ]
+}
