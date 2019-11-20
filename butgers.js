@@ -1,4 +1,6 @@
-console.log('test');
+/**
+ * @todo will need a rewrite to a more robust solution
+ */
 
 let regexp = /rutgers/gi;
 let butgers = 'Butgers';
@@ -12,6 +14,9 @@ if (bodyLength) {
   }
 }
 
+/**
+ * @todo make this recursion not ugly 
+ */
 function replaceRutgers(parent) {
   if (parent.tagName != 'SCRIPT') {
     if (parent.childElementCount) {
@@ -38,6 +43,9 @@ function replaceRutgers(parent) {
   return;
 }
 
+/**
+ * @todo this is just a stopgap until I get a more robust solution 
+ */
 function checkChildrenForContentTags(parent) {
   let contentFlag = false;
   let childCount = parent.childElementCount;
