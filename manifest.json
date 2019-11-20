@@ -1,6 +1,6 @@
 {
   "name": "Butgers",
-  "version": "0.1",
+  "version": "0.0.1",
   "description": "Replaces Rutgers with Butgers",
   "manifest_version": 2,
   "permissions": ["activeTab"],
