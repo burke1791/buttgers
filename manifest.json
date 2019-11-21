@@ -1,6 +1,6 @@
 {
   "name": "Buttgers",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Replaces Rutgers with Buttgers",
   "manifest_version": 2,
   "permissions": ["activeTab"],
@@ -8,6 +8,7 @@
     {
       "matches": ["https://*/*"],
       "run_at": "document_idle",
+      "all_frames": true,
       "js": ["buttgers.js"]
     }
   ]

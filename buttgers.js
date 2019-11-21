@@ -1,7 +1,3 @@
-/**
- * @todo will need a rewrite to a more robust solution
- */
-
 let regexp = /rutgers/gi;
 let buttgers = 'Buttgers';
 
@@ -14,48 +10,27 @@ if (bodyLength) {
   }
 }
 
-/**
- * @todo make this recursion not ugly 
- */
-function replaceRutgers(parent) {
-  if (parent.tagName != 'SCRIPT') {
-    if (parent.childElementCount) {
-      let childCount = parent.childElementCount;
-      if (checkChildrenForContentTags(parent)) {
-        for (var j = 0; j < childCount; j++) {
-          replaceRutgers(parent.children[j]);
-        }
-      } else {
-        if (parent.textContent.toLowerCase().includes('rutgers')) {
-          console.log('replacing: ' + parent.textContent);
-          parent.textContent = parent.textContent.replace(regexp, buttgers);
-        }
-        return;
-      }
-    } else {
-      if (parent.textContent.toLowerCase().includes('rutgers')) {
-        console.log('replacing: ' + parent.textContent);
-        parent.textContent = parent.textContent.replace(regexp, buttgers);
-      }
-      return;
+function replaceRutgers(node) {
+  if (!node.hasChildNodes()) {
+    if (node.nodeType == 3) {
+      node.textContent = node.textContent.replace(regexp, buttgers);
+    }
+    return;
+  } else if (node.nodeName.toLowerCase() != 'script' && node.nodeName.toLowerCase() != 'style') {
+    let childCount = node.childNodes.length;
+    for (var i = 0; i < childCount; i++) {
+      replaceRutgers(node.childNodes[i]);
     }
   }
-  return;
 }
 
-/**
- * @todo this is just a stopgap until I get a more robust solution 
- */
-function checkChildrenForContentTags(parent) {
-  let contentFlag = false;
-  let childCount = parent.childElementCount;
-
-  for (var i = 0; i < childCount; i++) {
-    let tag = parent.children[i].tagName;
-    if (tag == 'DIV' || tag == 'SECTION' || tag == 'FOOTER' || tag == 'P' || tag == 'UL' || tag == 'OL' || tag == 'LI' || tag.includes('H')) {
-      contentFlag = true;
+// in case some resources are slow to load, this should catch them
+document.onreadystatechange = function () {
+  if (document.readyState === 'complete') {
+    if (bodyLength) {
+      for (var i = 0; i < bodyLength; i++) {
+        replaceRutgers(body.item(i));
+      }
     }
   }
-
-  return contentFlag;
 }
