@@ -1,8 +1,24 @@
-let regexp = /rutgers/gi;
-let buttgers = 'Buttgers';
+// need to defensively declare variables because the code runs more than once without cleaning up
 
-let body = document.getElementsByTagName('body');
-let bodyLength = body.length;
+if (typeof regexp == undefined) {
+  let regexp = /rutgers/gi;
+}
+regexp = /rutgers/gi;
+
+if (typeof buttgers == undefined) {
+  let buttgers = 'Buttgers';
+}
+buttgers = 'Buttgers';
+
+if (typeof body == undefined) {
+  let body = document.getElementsByTagName('body');
+}
+body = document.getElementsByTagName('body');
+
+if (typeof bodyLength == undefined) {
+  let bodyLength = body.length;
+}
+bodyLength = body.length;
 
 if (bodyLength) {
   for (var i = 0; i < bodyLength; i++) {
