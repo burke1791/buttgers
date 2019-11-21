@@ -3,7 +3,7 @@
  */
 
 let regexp = /rutgers/gi;
-let butgers = 'Butgers';
+let buttgers = 'Buttgers';
 
 let body = document.getElementsByTagName('body');
 let bodyLength = body.length;
@@ -28,14 +28,14 @@ function replaceRutgers(parent) {
       } else {
         if (parent.textContent.toLowerCase().includes('rutgers')) {
           console.log('replacing: ' + parent.textContent);
-          parent.textContent = parent.textContent.replace(regexp, butgers);
+          parent.textContent = parent.textContent.replace(regexp, buttgers);
         }
         return;
       }
     } else {
       if (parent.textContent.toLowerCase().includes('rutgers')) {
         console.log('replacing: ' + parent.textContent);
-        parent.textContent = parent.textContent.replace(regexp, butgers);
+        parent.textContent = parent.textContent.replace(regexp, buttgers);
       }
       return;
     }
