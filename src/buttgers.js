@@ -83,10 +83,12 @@ var observer = new MutationObserver(function(mutations) {
 
 // define what element should be observed by the observer
 // and what types of mutations trigger the callback
-observer.observe(document.body, {
-  subtree: true,
-  attributes: true
-});
+
+// might need to get rid of the mutation observer and just do it on an interval
+// observer.observe(document.body, {
+//   subtree: true,
+//   attributes: true
+// });
 
 // in case some resources are slow to load, this should catch them
 document.onreadystatechange = function () {
