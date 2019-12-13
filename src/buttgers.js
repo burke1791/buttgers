@@ -8,24 +8,81 @@ let mutationMetrics = {
   count: 0
 }
 
+let main = document.body;
+
+// getBodyAndReplace();
+
+// let replace = setInterval(getBodyAndReplace, 1000);
+
+let startReplace = new Timeout(getBodyAndReplace, 0);
+let intervalReplace = new Interval(getBodyAndReplace, 1000);
+
+// let startReplace = setTimeout(getBodyAndReplace, 0);
+// clearTimeout(startReplace);
+
+main.addEventListener('keydown', e => {
+  intervalReplace.clear();
+  startReplace.clear();
+  startReplace.set(function() {
+    intervalReplace.set(getBodyAndReplace, 1000);
+  }, 5000);
+});
+
+function Timeout(handler, interval) {
+  this.id = setTimeout(handler, interval);
+  this.cleared = false;
+
+  this.set = function(handler, interval) {
+    if (this.cleared) {
+      this.id = setTimeout(handler, interval);
+      this.cleared = false;
+    }
+  }
+
+  this.clear = function() {
+    clearTimeout(this.id);
+    this.cleared = true;
+  }
+}
+
+function Interval(handler, interval) {
+  this.id = setInterval(handler, interval);
+  this.cleared = false;
+
+  this.set = function(handler, interval) {
+    if (this.cleared) {
+      this.id = setInterval(handler, interval);
+      this.cleared = false;
+    }
+  }
+
+  this.clear = function() {
+    clearInterval(this.id);
+    this.cleared = true;
+  }
+}
+
 let mutationFlag = true;
 
-getBodyAndReplace();
-
-setInterval(getBodyAndReplace, 5000);
 
 function getBodyAndReplace() {
+  console.log('replace');
+  let body = document.body;
+  replaceRutgers(body);
+
   if (mutationFlag) {
-    let body = document.getElementsByTagName('body');
-    let bodyLength = body.length;
+    // let body = document.getElementsByTagName('body');
+    // let bodyLength = body.length;
 
-    if (bodyLength) {
-      for (var i = 0; i < bodyLength; i++) {
-        replaceRutgers(body.item(i));
-      }
-    }
+    
 
-    mutationFlag = false;
+    // if (bodyLength) {
+    //   for (var i = 0; i < bodyLength; i++) {
+    //     replaceRutgers(body.item(i));
+    //   }
+    // }
+
+    // mutationFlag = false;
   }
 }
 
