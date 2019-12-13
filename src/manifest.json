@@ -1,6 +1,6 @@
 {
   "name": "Buttgers",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Replaces Rutgers with Buttgers",
   "manifest_version": 2,
   "permissions": ["activeTab"],
@@ -9,5 +9,8 @@
       "matches": ["<all_urls>"],
       "js": ["buttgers.js"]
     }
-  ]
+  ],
+  "icons": {
+    "128": "images/buttgers.png"
+  }
 }
