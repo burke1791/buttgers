@@ -50,8 +50,12 @@ function replaceRutgers(node) {
     node.textContent = node.textContent.replace(regexp, buttgers);
   } else if (node.nodeName.toLowerCase() != 'script' && node.nodeName.toLowerCase() != 'style') {
     let childCount = node.childNodes.length;
-    for (var i = 0; i < childCount; i++) {
-      replaceRutgers(node.childNodes[i]);
-    }
+    loopReplace(node, childCount);
+  }
+}
+
+function loopReplace(node, childCount) {
+  for (var i = 0; i < childCount; i++) {
+    replaceRutgers(node.childNodes[i]);
   }
 }
