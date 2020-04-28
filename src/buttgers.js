@@ -1,8 +1,11 @@
 let regexp = /rutgers/gi;
 let buttgers = 'Buttgers';
 
-let startReplace = new Timeout(getBodyAndReplace, 0);
-let intervalReplace = new Interval(getBodyAndReplace, 1000);
+let startReplace = new Timer(getBodyAndReplace, 0, setTimeout, clearTimeout);
+let intervalReplace = new Timer(getBodyAndReplace, 1000, setInterval, clearInterval);
+
+startReplace.set();
+intervalReplace.set();
 
 document.body.addEventListener('keydown', e => {
   intervalReplace.clear();
@@ -12,53 +15,39 @@ document.body.addEventListener('keydown', e => {
   }, 5000);
 });
 
-function Timeout(handler, interval) {
-  this.id = setTimeout(handler, interval);
-  this.cleared = false;
+function Timer(handler, interval, timerFunc, clearTimer) {
+  this.id = null;
+  this.cleared = true;
+  this.handler = handler;
+  this.interval = interval;
+  this.timerFunc = timerFunc;
+  this.clearTimer = clearTimer;
 
-  this.set = function(handler, interval) {
+  this.set = function() {
     if (this.cleared) {
-      this.id = setTimeout(handler, interval);
+      this.id = this.timerFunc(this.handler, this.interval);
       this.cleared = false;
     }
   }
 
   this.clear = function() {
-    clearTimeout(this.id);
+    this.clearTimer(this.id);
     this.cleared = true;
   }
 }
-
-function Interval(handler, interval) {
-  this.id = setInterval(handler, interval);
-  this.cleared = false;
-
-  this.set = function(handler, interval) {
-    if (this.cleared) {
-      this.id = setInterval(handler, interval);
-      this.cleared = false;
-    }
-  }
-
-  this.clear = function() {
-    clearInterval(this.id);
-    this.cleared = true;
-  }
-}
-
 
 function getBodyAndReplace() {
-  console.log('replace');
   let body = document.body;
   replaceRutgers(body);
 }
 
 function replaceRutgers(node) {
-  if (!node.hasChildNodes()) {
-    if (node.nodeType == 3) {
-      node.textContent = node.textContent.replace(regexp, buttgers);
-    }
+  let childFlag = node.hasChildNodes();
+
+  if (!childFlag) {
     return;
+  } else if (!childFlag && node.nodeType == 3) {
+    node.textContent = node.textContent.replace(regexp, buttgers);
   } else if (node.nodeName.toLowerCase() != 'script' && node.nodeName.toLowerCase() != 'style') {
     let childCount = node.childNodes.length;
     for (var i = 0; i < childCount; i++) {
